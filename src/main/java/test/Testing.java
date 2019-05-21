@@ -8,6 +8,7 @@ import com.yakov.coupons.logic.CouponController;
 import com.yakov.coupons.logic.CustomerController;
 import com.yakov.coupons.logic.PurchaseController;
 import com.yakov.coupons.logic.UserController;
+import com.yakov.coupons.enums.CategoriesEnum;
 import com.yakov.coupons.enums.ClientType;
 import com.yakov.coupons.javaBeans.Company;
 import com.yakov.coupons.javaBeans.Coupon;
@@ -68,7 +69,7 @@ public class Testing {
 			userController.addUser(user);
 		}
 
-		users[3].setUser_name("alice@wonderland.com");
+		users[3].setUserName("alice@wonderland.com");
 		userController.updateUser(users[3]);
 
 		User userDB = userController.getUser(1);
@@ -79,11 +80,11 @@ public class Testing {
 			System.out.println("Getting users from DB --> Faild!");
 		}
 		Customer[] customers = new Customer[5];
-		customers[0] = new Customer(users[0].getUser_id(),users[0],"Johnny", "Bravo", "jbrock@cartoon.com", "Jbrock123");
-		customers[1] = new Customer(users[1].getUser_id(),users[1],"Al", "Bundy", "married2@nomaam.com", "4TouchMe");
-		customers[2] = new Customer(users[2].getUser_id(),users[2],"Freddy", "Krueger", "fred123@elm.com", "Fkelm");
-		customers[3] = new Customer(users[3].getUser_id(),users[3],"Alissa", "Wonder", "alissa@wonderland.com", "Rabbit12");
-		customers[4] = new Customer(users[4].getUser_id(),users[4],"Hannah", "Montana", "hanale@montana.com", "Hmhm104");
+		customers[0] = new Customer(users[0].getUserId(),users[0],"Johnny", "Bravo", "jbrock@cartoon.com", "Jbrock123");
+		customers[1] = new Customer(users[1].getUserId(),users[1],"Al", "Bundy", "married2@nomaam.com", "4TouchMe");
+		customers[2] = new Customer(users[2].getUserId(),users[2],"Freddy", "Krueger", "fred123@elm.com", "Fkelm");
+		customers[3] = new Customer(users[3].getUserId(),users[3],"Alissa", "Wonder", "alissa@wonderland.com", "Rabbit12");
+		customers[4] = new Customer(users[4].getUserId(),users[4],"Hannah", "Montana", "hanale@montana.com", "Hmhm104");
 
 		
 		// Add the customers to the database
@@ -93,16 +94,16 @@ public class Testing {
 		// Delete customer
 		customerController.deleteCustomer(5);
 		// Update customer
-		customers[3].setFirst_name("Alice");
-		customers[3].setLast_name("Wonder");
+		customers[3].setFirstName("Alice");
+		customers[3].setLastName("Wonder");
 		customers[3].setEmail("alice11@gmail.com");
 //		 customers[3].setPassword("rabbit");
 		customerController.updateCustomer(customers[3]);
 
 		// Read back from DB
 		List<Customer> customersFromDB = customerController.getAllCustomers();
-		if (customersFromDB.size() == 4 && customersFromDB.get(3).getFirst_name().equals("Alice")
-				&& customersFromDB.get(3).getLast_name().equals("Wonderland")
+		if (customersFromDB.size() == 4 && customersFromDB.get(3).getFirstName().equals("Alice")
+				&& customersFromDB.get(3).getLastName().equals("Wonderland")
 				&& customersFromDB.get(3).getEmail().equals("alice@wonderland.com")) {
 			System.out.println("Getting Customers from Data Base  --> Success");
 		} else {
@@ -124,33 +125,33 @@ public class Testing {
 		// Nike T-shirt 50%, 50 coupons, 10$, 2019-02-01 through 2019-06-30
 		Date startDate = formatter.parse("2019-02-01");
 		Date endDate = formatter.parse("2019-06-30");
-		coupons[0] = new Coupon(companies[0].getId(), 1, "T-Shirt half off!", "Get 50% off any Nike logo T-shirt",
+		coupons[0] = new Coupon(companies[0].getId(), CategoriesEnum.Baby, "T-Shirt half off!", "Get 50% off any Nike logo T-shirt",
 				startDate, endDate, 50, 10.0, "https://i.ebayimg.com/images/g/YOsAAOSwoIlazLel/s-l300.jpg");
 
 		// Nike Sneakers 20%, 50 coupons, 8$, 2019-02-01 through 2020-02-01
 		startDate = formatter.parse("2019-02-01");
 		endDate = formatter.parse("2020-02-01");
-		coupons[1] = new Coupon(companies[0].getId(), 1, "20% On Sneakers!", "Get 20% off any Nike Sneakers", startDate,
+		coupons[1] = new Coupon(companies[0].getId(), CategoriesEnum.Snacks, "20% On Sneakers!", "Get 20% off any Nike Sneakers", startDate,
 				endDate, 50, 8.0,
 				"https://images.nike.com/is/image/DotCom/pwp_sheet2?$NIKE_PWPx3$&$img0=BQ8928_400&$img1=BQ8928_003&$img2=BQ8928_005");
 
 		// Bug 30% off, 100 coupons, 5$, 2019-01-01 through 2019-12-31
 		startDate = formatter.parse("2019-01-01");
 		endDate = formatter.parse("2019-12-31");
-		coupons[2] = new Coupon(companies[1].getId(), 3, "30% OFF!", "Get 30% off any Bug Products", startDate, endDate,
+		coupons[2] = new Coupon(companies[1].getId(), CategoriesEnum.HouseholdProducts, "30% OFF!", "Get 30% off any Bug Products", startDate, endDate,
 				100, 7.5,
 				"https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2012/2/1/1328121872902/A-computer-bug-007.jpg?width=700&quality=85&auto=format&fit=max&s=0070ca87239fdf83041ef0ad93db14c2");
 
 		// Ivory mouse 50%, 20 coupons, 15.5$, 2019-02-01 through 2019-04-30
 		startDate = formatter.parse("2019-02-01");
 		endDate = formatter.parse("2019-04-30");
-		coupons[3] = new Coupon(companies[2].getId(), 3, "50% Off Laser Mouse", "Get 50% off any laser mouse",
+		coupons[3] = new Coupon(companies[2].getId(), CategoriesEnum.PaperProducts, "50% Off Laser Mouse", "Get 50% off any laser mouse",
 				startDate, endDate, 20, 15.5, "https://www.arp.nl/webmedias/prb/460x460/58eb6cc34c2f85e0fda58cfa.jpg");
 
 		// Ivory 1+1 on chargers, 30 coupons, 12$, 2019-01-01 through 2021-12-31
 		startDate = formatter.parse("2019-01-01");
 		endDate = formatter.parse("2021-12-31");
-		coupons[4] = new Coupon(companies[2].getId(), 3, "Buy 1 Get 1 Free on any Charger",
+		coupons[4] = new Coupon(companies[2].getId(), CategoriesEnum.LaundrySupplies, "Buy 1 Get 1 Free on any Charger",
 				"Buy 1 get 1 free on any phone charger", startDate, endDate, 30, 12,
 				"https://4.imimg.com/data4/OG/CC/MY-7810515/mobile-phone-charger-500x500.jpg");
 
@@ -158,7 +159,7 @@ public class Testing {
 		// 2019-12-31
 		startDate = formatter.parse("2019-01-01");
 		endDate = formatter.parse("2019-12-31");
-		coupons[5] = new Coupon(companies[3].getId(), 3, "Get 30% off Diamond Necklace",
+		coupons[5] = new Coupon(companies[3].getId(), CategoriesEnum.CleaningSupplies, "Get 30% off Diamond Necklace",
 				"Get 30% off selected diamond necklaces", startDate, endDate, 10, 50,
 				"https://imagens.hstern.com.br/imagesmenu/menu_colec_copernicus.jpg");
 		
@@ -185,9 +186,9 @@ public class Testing {
 		System.out.println("Testing customer CRUD...");
 
 		// Purchase coupons
-		purchaseController.purchaseCoupon(customers[0].getCustomer_id(), couponsFromDB.get(0).getId(), 1);
-		purchaseController.purchaseCoupon(customers[1].getCustomer_id(), 3, 5);
-		purchaseController.purchaseCoupon(customers[2].getCustomer_id(), 3, 5);
+		purchaseController.purchaseCoupon(customers[0].getCustomerId(), couponsFromDB.get(0).getId(), 1);
+		purchaseController.purchaseCoupon(customers[1].getCustomerId(), 3, 5);
+		purchaseController.purchaseCoupon(customers[2].getCustomerId(), 3, 5);
 // purchaseController.deleteCouponPurchase(1,1);
 // delete works great.
 		
